@@ -1,8 +1,8 @@
 --Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------
 --Tool Version: Vivado v.2019.2 (win64) Build 2708876 Wed Nov  6 21:40:23 MST 2019
---Date        : Thu Jul  2 19:26:39 2020
---Host        : DESKTOP-ES9CM6O running 64-bit major release  (build 9200)
+--Date        : Thu Jul  2 23:14:34 2020
+--Host        : DESKTOP-DS21IC9 running 64-bit major release  (build 9200)
 --Command     : generate_target mb_design.bd
 --Design      : mb_design
 --Purpose     : IP block netlist
@@ -745,7 +745,7 @@ entity microblaze_0_local_memory_imp_UIMIJC is
 end microblaze_0_local_memory_imp_UIMIJC;
 
 architecture STRUCTURE of microblaze_0_local_memory_imp_UIMIJC is
-  component mb_design_dlmb_v10_1 is
+  component mb_design_dlmb_v10_2 is
   port (
     LMB_Clk : in STD_LOGIC;
     SYS_Rst : in STD_LOGIC;
@@ -773,8 +773,8 @@ architecture STRUCTURE of microblaze_0_local_memory_imp_UIMIJC is
     LMB_CE : out STD_LOGIC;
     LMB_BE : out STD_LOGIC_VECTOR ( 0 to 3 )
   );
-  end component mb_design_dlmb_v10_1;
-  component mb_design_ilmb_v10_1 is
+  end component mb_design_dlmb_v10_2;
+  component mb_design_ilmb_v10_2 is
   port (
     LMB_Clk : in STD_LOGIC;
     SYS_Rst : in STD_LOGIC;
@@ -802,8 +802,8 @@ architecture STRUCTURE of microblaze_0_local_memory_imp_UIMIJC is
     LMB_CE : out STD_LOGIC;
     LMB_BE : out STD_LOGIC_VECTOR ( 0 to 3 )
   );
-  end component mb_design_ilmb_v10_1;
-  component mb_design_dlmb_bram_if_cntlr_1 is
+  end component mb_design_ilmb_v10_2;
+  component mb_design_dlmb_bram_if_cntlr_2 is
   port (
     LMB_Clk : in STD_LOGIC;
     LMB_Rst : in STD_LOGIC;
@@ -826,8 +826,8 @@ architecture STRUCTURE of microblaze_0_local_memory_imp_UIMIJC is
     BRAM_Dout_A : out STD_LOGIC_VECTOR ( 0 to 31 );
     BRAM_Din_A : in STD_LOGIC_VECTOR ( 0 to 31 )
   );
-  end component mb_design_dlmb_bram_if_cntlr_1;
-  component mb_design_ilmb_bram_if_cntlr_1 is
+  end component mb_design_dlmb_bram_if_cntlr_2;
+  component mb_design_ilmb_bram_if_cntlr_2 is
   port (
     LMB_Clk : in STD_LOGIC;
     LMB_Rst : in STD_LOGIC;
@@ -850,8 +850,8 @@ architecture STRUCTURE of microblaze_0_local_memory_imp_UIMIJC is
     BRAM_Dout_A : out STD_LOGIC_VECTOR ( 0 to 31 );
     BRAM_Din_A : in STD_LOGIC_VECTOR ( 0 to 31 )
   );
-  end component mb_design_ilmb_bram_if_cntlr_1;
-  component mb_design_lmb_bram_1 is
+  end component mb_design_ilmb_bram_if_cntlr_2;
+  component mb_design_lmb_bram_2 is
   port (
     clka : in STD_LOGIC;
     rsta : in STD_LOGIC;
@@ -870,7 +870,7 @@ architecture STRUCTURE of microblaze_0_local_memory_imp_UIMIJC is
     rsta_busy : out STD_LOGIC;
     rstb_busy : out STD_LOGIC
   );
-  end component mb_design_lmb_bram_1;
+  end component mb_design_lmb_bram_2;
   signal SYS_Rst_1 : STD_LOGIC;
   signal microblaze_0_Clk : STD_LOGIC;
   signal microblaze_0_dlmb_ABUS : STD_LOGIC_VECTOR ( 0 to 31 );
@@ -958,7 +958,7 @@ begin
   microblaze_0_ilmb_ABUS(0 to 31) <= ILMB_abus(0 to 31);
   microblaze_0_ilmb_ADDRSTROBE <= ILMB_addrstrobe;
   microblaze_0_ilmb_READSTROBE <= ILMB_readstrobe;
-dlmb_bram_if_cntlr: component mb_design_dlmb_bram_if_cntlr_1
+dlmb_bram_if_cntlr: component mb_design_dlmb_bram_if_cntlr_2
      port map (
       BRAM_Addr_A(0 to 31) => microblaze_0_dlmb_cntlr_ADDR(0 to 31),
       BRAM_Clk_A => microblaze_0_dlmb_cntlr_CLK,
@@ -1012,7 +1012,7 @@ dlmb_bram_if_cntlr: component mb_design_dlmb_bram_if_cntlr_1
       Sl_UE => microblaze_0_dlmb_bus_UE,
       Sl_Wait => microblaze_0_dlmb_bus_WAIT
     );
-dlmb_v10: component mb_design_dlmb_v10_1
+dlmb_v10: component mb_design_dlmb_v10_2
      port map (
       LMB_ABus(0 to 31) => microblaze_0_dlmb_bus_ABUS(0 to 31),
       LMB_AddrStrobe => microblaze_0_dlmb_bus_ADDRSTROBE,
@@ -1040,7 +1040,7 @@ dlmb_v10: component mb_design_dlmb_v10_1
       Sl_UE(0) => microblaze_0_dlmb_bus_UE,
       Sl_Wait(0) => microblaze_0_dlmb_bus_WAIT
     );
-ilmb_bram_if_cntlr: component mb_design_ilmb_bram_if_cntlr_1
+ilmb_bram_if_cntlr: component mb_design_ilmb_bram_if_cntlr_2
      port map (
       BRAM_Addr_A(0 to 31) => microblaze_0_ilmb_cntlr_ADDR(0 to 31),
       BRAM_Clk_A => microblaze_0_ilmb_cntlr_CLK,
@@ -1094,7 +1094,7 @@ ilmb_bram_if_cntlr: component mb_design_ilmb_bram_if_cntlr_1
       Sl_UE => microblaze_0_ilmb_bus_UE,
       Sl_Wait => microblaze_0_ilmb_bus_WAIT
     );
-ilmb_v10: component mb_design_ilmb_v10_1
+ilmb_v10: component mb_design_ilmb_v10_2
      port map (
       LMB_ABus(0 to 31) => microblaze_0_ilmb_bus_ABUS(0 to 31),
       LMB_AddrStrobe => microblaze_0_ilmb_bus_ADDRSTROBE,
@@ -1122,7 +1122,7 @@ ilmb_v10: component mb_design_ilmb_v10_1
       Sl_UE(0) => microblaze_0_ilmb_bus_UE,
       Sl_Wait(0) => microblaze_0_ilmb_bus_WAIT
     );
-lmb_bram: component mb_design_lmb_bram_1
+lmb_bram: component mb_design_lmb_bram_2
      port map (
       addra(31) => microblaze_0_dlmb_cntlr_ADDR(0),
       addra(30) => microblaze_0_dlmb_cntlr_ADDR(1),
@@ -2515,7 +2515,7 @@ entity mb_design is
     usb_uart_txd : out STD_LOGIC
   );
   attribute CORE_GENERATION_INFO : string;
-  attribute CORE_GENERATION_INFO of mb_design : entity is "mb_design,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=mb_design,x_ipVersion=1.00.a,x_ipLanguage=VHDL,numBlks=30,numReposBlks=20,numNonXlnxBlks=0,numHierBlks=10,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=0,numPkgbdBlks=0,bdsource=USER,da_axi4_cnt=6,da_board_cnt=11,da_clkrst_cnt=3,da_mb_cnt=3,synth_mode=OOC_per_IP}";
+  attribute CORE_GENERATION_INFO of mb_design : entity is "mb_design,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=mb_design,x_ipVersion=1.00.a,x_ipLanguage=VHDL,numBlks=30,numReposBlks=20,numNonXlnxBlks=0,numHierBlks=10,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=0,numPkgbdBlks=0,bdsource=USER,da_axi4_cnt=6,da_board_cnt=11,da_clkrst_cnt=3,da_mb_cnt=4,synth_mode=OOC_per_IP}";
   attribute HW_HANDOFF : string;
   attribute HW_HANDOFF of mb_design : entity is "mb_design.hwdef";
 end mb_design;
@@ -2764,7 +2764,7 @@ architecture STRUCTURE of mb_design is
     Interrupt : out STD_LOGIC
   );
   end component mb_design_fit_timer_0_0;
-  component mb_design_microblaze_0_1 is
+  component mb_design_microblaze_0_2 is
   port (
     Clk : in STD_LOGIC;
     Reset : in STD_LOGIC;
@@ -2827,23 +2827,23 @@ architecture STRUCTURE of mb_design is
     S0_AXIS_TVALID : in STD_LOGIC;
     S0_AXIS_TREADY : out STD_LOGIC
   );
-  end component mb_design_microblaze_0_1;
+  end component mb_design_microblaze_0_2;
   component mb_design_PearsonHashingCop_0_0 is
   port (
-    m00_axis_aclk : in STD_LOGIC;
-    m00_axis_aresetn : in STD_LOGIC;
-    m00_axis_tvalid : out STD_LOGIC;
-    m00_axis_tdata : out STD_LOGIC_VECTOR ( 31 downto 0 );
-    m00_axis_tstrb : out STD_LOGIC_VECTOR ( 3 downto 0 );
-    m00_axis_tlast : out STD_LOGIC;
-    m00_axis_tready : in STD_LOGIC;
     s00_axis_aclk : in STD_LOGIC;
     s00_axis_aresetn : in STD_LOGIC;
     s00_axis_tready : out STD_LOGIC;
     s00_axis_tdata : in STD_LOGIC_VECTOR ( 31 downto 0 );
     s00_axis_tstrb : in STD_LOGIC_VECTOR ( 3 downto 0 );
     s00_axis_tlast : in STD_LOGIC;
-    s00_axis_tvalid : in STD_LOGIC
+    s00_axis_tvalid : in STD_LOGIC;
+    m00_axis_aclk : in STD_LOGIC;
+    m00_axis_aresetn : in STD_LOGIC;
+    m00_axis_tvalid : out STD_LOGIC;
+    m00_axis_tdata : out STD_LOGIC_VECTOR ( 31 downto 0 );
+    m00_axis_tstrb : out STD_LOGIC_VECTOR ( 3 downto 0 );
+    m00_axis_tlast : out STD_LOGIC;
+    m00_axis_tready : in STD_LOGIC
   );
   end component mb_design_PearsonHashingCop_0_0;
   signal PearsonHashingCop_0_M00_AXIS_TDATA : STD_LOGIC_VECTOR ( 31 downto 0 );
@@ -3293,7 +3293,7 @@ mdm_1: component mb_design_mdm_1_0
       Dbg_Update_0 => microblaze_0_debug_UPDATE,
       Debug_SYS_Rst => mdm_1_debug_sys_rst
     );
-microblaze_0: component mb_design_microblaze_0_1
+microblaze_0: component mb_design_microblaze_0_2
      port map (
       Byte_Enable(0 to 3) => microblaze_0_dlmb_1_BE(0 to 3),
       Clk => microblaze_0_Clk,

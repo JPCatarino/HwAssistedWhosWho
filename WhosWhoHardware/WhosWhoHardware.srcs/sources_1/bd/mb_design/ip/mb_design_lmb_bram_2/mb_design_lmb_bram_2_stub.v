@@ -1,10 +1,10 @@
 // Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2019.2 (win64) Build 2708876 Wed Nov  6 21:40:23 MST 2019
-// Date        : Thu Jul  2 19:50:37 2020
-// Host        : DESKTOP-ES9CM6O running 64-bit major release  (build 9200)
+// Date        : Thu Jul  2 23:15:57 2020
+// Host        : DESKTOP-DS21IC9 running 64-bit major release  (build 9200)
 // Command     : write_verilog -force -mode synth_stub
-//               e:/CR_proj/WhosWhoHardware/WhosWhoHardware.srcs/sources_1/bd/mb_design/ip/mb_design_lmb_bram_2/mb_design_lmb_bram_2_stub.v
+//               C:/HwAssistedWhosWho/WhosWhoHardware/WhosWhoHardware.srcs/sources_1/bd/mb_design/ip/mb_design_lmb_bram_2/mb_design_lmb_bram_2_stub.v
 // Design      : mb_design_lmb_bram_2
 // Purpose     : Stub declaration of top-level module interface
 // Device      : xc7a100tcsg324-1

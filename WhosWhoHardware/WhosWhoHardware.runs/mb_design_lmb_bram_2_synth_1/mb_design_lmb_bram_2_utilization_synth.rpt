@@ -1,8 +1,8 @@
 Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 -----------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2019.2 (win64) Build 2708876 Wed Nov  6 21:40:23 MST 2019
-| Date         : Thu Jul  2 19:50:37 2020
-| Host         : DESKTOP-ES9CM6O running 64-bit major release  (build 9200)
+| Date         : Thu Jul  2 23:15:57 2020
+| Host         : DESKTOP-DS21IC9 running 64-bit major release  (build 9200)
 | Command      : report_utilization -file mb_design_lmb_bram_2_utilization_synth.rpt -pb mb_design_lmb_bram_2_utilization_synth.pb
 | Design       : mb_design_lmb_bram_2
 | Device       : 7a100tcsg324-1

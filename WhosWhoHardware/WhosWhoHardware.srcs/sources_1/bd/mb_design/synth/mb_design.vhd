@@ -1,8 +1,8 @@
 --Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------
 --Tool Version: Vivado v.2019.2 (win64) Build 2708876 Wed Nov  6 21:40:23 MST 2019
---Date        : Thu Jul  2 19:47:36 2020
---Host        : DESKTOP-ES9CM6O running 64-bit major release  (build 9200)
+--Date        : Thu Jul  2 23:14:34 2020
+--Host        : DESKTOP-DS21IC9 running 64-bit major release  (build 9200)
 --Command     : generate_target mb_design.bd
 --Design      : mb_design
 --Purpose     : IP block netlist
@@ -2764,24 +2764,6 @@ architecture STRUCTURE of mb_design is
     Interrupt : out STD_LOGIC
   );
   end component mb_design_fit_timer_0_0;
-  component mb_design_PearsonHashingCop_0_0 is
-  port (
-    m00_axis_aclk : in STD_LOGIC;
-    m00_axis_aresetn : in STD_LOGIC;
-    m00_axis_tvalid : out STD_LOGIC;
-    m00_axis_tdata : out STD_LOGIC_VECTOR ( 31 downto 0 );
-    m00_axis_tstrb : out STD_LOGIC_VECTOR ( 3 downto 0 );
-    m00_axis_tlast : out STD_LOGIC;
-    m00_axis_tready : in STD_LOGIC;
-    s00_axis_aclk : in STD_LOGIC;
-    s00_axis_aresetn : in STD_LOGIC;
-    s00_axis_tready : out STD_LOGIC;
-    s00_axis_tdata : in STD_LOGIC_VECTOR ( 31 downto 0 );
-    s00_axis_tstrb : in STD_LOGIC_VECTOR ( 3 downto 0 );
-    s00_axis_tlast : in STD_LOGIC;
-    s00_axis_tvalid : in STD_LOGIC
-  );
-  end component mb_design_PearsonHashingCop_0_0;
   component mb_design_microblaze_0_2 is
   port (
     Clk : in STD_LOGIC;
@@ -2846,6 +2828,24 @@ architecture STRUCTURE of mb_design is
     S0_AXIS_TREADY : out STD_LOGIC
   );
   end component mb_design_microblaze_0_2;
+  component mb_design_PearsonHashingCop_0_0 is
+  port (
+    s00_axis_aclk : in STD_LOGIC;
+    s00_axis_aresetn : in STD_LOGIC;
+    s00_axis_tready : out STD_LOGIC;
+    s00_axis_tdata : in STD_LOGIC_VECTOR ( 31 downto 0 );
+    s00_axis_tstrb : in STD_LOGIC_VECTOR ( 3 downto 0 );
+    s00_axis_tlast : in STD_LOGIC;
+    s00_axis_tvalid : in STD_LOGIC;
+    m00_axis_aclk : in STD_LOGIC;
+    m00_axis_aresetn : in STD_LOGIC;
+    m00_axis_tvalid : out STD_LOGIC;
+    m00_axis_tdata : out STD_LOGIC_VECTOR ( 31 downto 0 );
+    m00_axis_tstrb : out STD_LOGIC_VECTOR ( 3 downto 0 );
+    m00_axis_tlast : out STD_LOGIC;
+    m00_axis_tready : in STD_LOGIC
+  );
+  end component mb_design_PearsonHashingCop_0_0;
   signal PearsonHashingCop_0_M00_AXIS_TDATA : STD_LOGIC_VECTOR ( 31 downto 0 );
   signal PearsonHashingCop_0_M00_AXIS_TLAST : STD_LOGIC;
   signal PearsonHashingCop_0_M00_AXIS_TREADY : STD_LOGIC;

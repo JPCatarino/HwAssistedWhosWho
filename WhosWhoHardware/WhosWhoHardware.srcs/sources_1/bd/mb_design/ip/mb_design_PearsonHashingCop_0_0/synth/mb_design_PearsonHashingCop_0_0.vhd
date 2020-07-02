@@ -47,7 +47,7 @@
 -- DO NOT MODIFY THIS FILE.
 
 -- IP VLNV: xilinx.com:user:PearsonHashingCop:1.0
--- IP Revision: 3
+-- IP Revision: 7
 
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
@@ -55,20 +55,20 @@ USE ieee.numeric_std.ALL;
 
 ENTITY mb_design_PearsonHashingCop_0_0 IS
   PORT (
-    m00_axis_aclk : IN STD_LOGIC;
-    m00_axis_aresetn : IN STD_LOGIC;
-    m00_axis_tvalid : OUT STD_LOGIC;
-    m00_axis_tdata : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
-    m00_axis_tstrb : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
-    m00_axis_tlast : OUT STD_LOGIC;
-    m00_axis_tready : IN STD_LOGIC;
     s00_axis_aclk : IN STD_LOGIC;
     s00_axis_aresetn : IN STD_LOGIC;
     s00_axis_tready : OUT STD_LOGIC;
     s00_axis_tdata : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
     s00_axis_tstrb : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
     s00_axis_tlast : IN STD_LOGIC;
-    s00_axis_tvalid : IN STD_LOGIC
+    s00_axis_tvalid : IN STD_LOGIC;
+    m00_axis_aclk : IN STD_LOGIC;
+    m00_axis_aresetn : IN STD_LOGIC;
+    m00_axis_tvalid : OUT STD_LOGIC;
+    m00_axis_tdata : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
+    m00_axis_tstrb : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
+    m00_axis_tlast : OUT STD_LOGIC;
+    m00_axis_tready : IN STD_LOGIC
   );
 END mb_design_PearsonHashingCop_0_0;
 
@@ -82,20 +82,20 @@ ARCHITECTURE mb_design_PearsonHashingCop_0_0_arch OF mb_design_PearsonHashingCop
       C_S00_AXIS_TDATA_WIDTH : INTEGER -- AXI4Stream sink: Data Width
     );
     PORT (
-      m00_axis_aclk : IN STD_LOGIC;
-      m00_axis_aresetn : IN STD_LOGIC;
-      m00_axis_tvalid : OUT STD_LOGIC;
-      m00_axis_tdata : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
-      m00_axis_tstrb : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
-      m00_axis_tlast : OUT STD_LOGIC;
-      m00_axis_tready : IN STD_LOGIC;
       s00_axis_aclk : IN STD_LOGIC;
       s00_axis_aresetn : IN STD_LOGIC;
       s00_axis_tready : OUT STD_LOGIC;
       s00_axis_tdata : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
       s00_axis_tstrb : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
       s00_axis_tlast : IN STD_LOGIC;
-      s00_axis_tvalid : IN STD_LOGIC
+      s00_axis_tvalid : IN STD_LOGIC;
+      m00_axis_aclk : IN STD_LOGIC;
+      m00_axis_aresetn : IN STD_LOGIC;
+      m00_axis_tvalid : OUT STD_LOGIC;
+      m00_axis_tdata : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
+      m00_axis_tstrb : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
+      m00_axis_tlast : OUT STD_LOGIC;
+      m00_axis_tready : IN STD_LOGIC
     );
   END COMPONENT PearsonHashingCop_v1_0;
   ATTRIBUTE X_CORE_INFO : STRING;
@@ -103,19 +103,9 @@ ARCHITECTURE mb_design_PearsonHashingCop_0_0_arch OF mb_design_PearsonHashingCop
   ATTRIBUTE CHECK_LICENSE_TYPE : STRING;
   ATTRIBUTE CHECK_LICENSE_TYPE OF mb_design_PearsonHashingCop_0_0_arch : ARCHITECTURE IS "mb_design_PearsonHashingCop_0_0,PearsonHashingCop_v1_0,{}";
   ATTRIBUTE CORE_GENERATION_INFO : STRING;
-  ATTRIBUTE CORE_GENERATION_INFO OF mb_design_PearsonHashingCop_0_0_arch: ARCHITECTURE IS "mb_design_PearsonHashingCop_0_0,PearsonHashingCop_v1_0,{x_ipProduct=Vivado 2019.2,x_ipVendor=xilinx.com,x_ipLibrary=user,x_ipName=PearsonHashingCop,x_ipVersion=1.0,x_ipCoreRevision=3,x_ipLanguage=VHDL,x_ipSimLanguage=MIXED,C_M00_AXIS_TDATA_WIDTH=32,C_M00_AXIS_START_COUNT=32,C_S00_AXIS_TDATA_WIDTH=32}";
+  ATTRIBUTE CORE_GENERATION_INFO OF mb_design_PearsonHashingCop_0_0_arch: ARCHITECTURE IS "mb_design_PearsonHashingCop_0_0,PearsonHashingCop_v1_0,{x_ipProduct=Vivado 2019.2,x_ipVendor=xilinx.com,x_ipLibrary=user,x_ipName=PearsonHashingCop,x_ipVersion=1.0,x_ipCoreRevision=7,x_ipLanguage=VHDL,x_ipSimLanguage=MIXED,C_M00_AXIS_TDATA_WIDTH=32,C_M00_AXIS_START_COUNT=32,C_S00_AXIS_TDATA_WIDTH=32}";
   ATTRIBUTE X_INTERFACE_INFO : STRING;
   ATTRIBUTE X_INTERFACE_PARAMETER : STRING;
-  ATTRIBUTE X_INTERFACE_INFO OF s00_axis_tvalid: SIGNAL IS "xilinx.com:interface:axis:1.0 S00_AXIS TVALID";
-  ATTRIBUTE X_INTERFACE_INFO OF s00_axis_tlast: SIGNAL IS "xilinx.com:interface:axis:1.0 S00_AXIS TLAST";
-  ATTRIBUTE X_INTERFACE_INFO OF s00_axis_tstrb: SIGNAL IS "xilinx.com:interface:axis:1.0 S00_AXIS TSTRB";
-  ATTRIBUTE X_INTERFACE_INFO OF s00_axis_tdata: SIGNAL IS "xilinx.com:interface:axis:1.0 S00_AXIS TDATA";
-  ATTRIBUTE X_INTERFACE_PARAMETER OF s00_axis_tready: SIGNAL IS "XIL_INTERFACENAME S00_AXIS, WIZ_DATA_WIDTH 32, TDATA_NUM_BYTES 4, TDEST_WIDTH 0, TID_WIDTH 0, TUSER_WIDTH 0, HAS_TREADY 1, HAS_TSTRB 1, HAS_TKEEP 0, HAS_TLAST 1, FREQ_HZ 100000000, PHASE 0.0, CLK_DOMAIN /clk_wiz_1_clk_out1, LAYERED_METADATA undef, INSERT_VIP 0";
-  ATTRIBUTE X_INTERFACE_INFO OF s00_axis_tready: SIGNAL IS "xilinx.com:interface:axis:1.0 S00_AXIS TREADY";
-  ATTRIBUTE X_INTERFACE_PARAMETER OF s00_axis_aresetn: SIGNAL IS "XIL_INTERFACENAME S00_AXIS_RST, POLARITY ACTIVE_LOW, INSERT_VIP 0";
-  ATTRIBUTE X_INTERFACE_INFO OF s00_axis_aresetn: SIGNAL IS "xilinx.com:signal:reset:1.0 S00_AXIS_RST RST";
-  ATTRIBUTE X_INTERFACE_PARAMETER OF s00_axis_aclk: SIGNAL IS "XIL_INTERFACENAME S00_AXIS_CLK, ASSOCIATED_BUSIF S00_AXIS, ASSOCIATED_RESET s00_axis_aresetn, FREQ_HZ 100000000, PHASE 0.0, CLK_DOMAIN /clk_wiz_1_clk_out1, INSERT_VIP 0";
-  ATTRIBUTE X_INTERFACE_INFO OF s00_axis_aclk: SIGNAL IS "xilinx.com:signal:clock:1.0 S00_AXIS_CLK CLK";
   ATTRIBUTE X_INTERFACE_INFO OF m00_axis_tready: SIGNAL IS "xilinx.com:interface:axis:1.0 M00_AXIS TREADY";
   ATTRIBUTE X_INTERFACE_INFO OF m00_axis_tlast: SIGNAL IS "xilinx.com:interface:axis:1.0 M00_AXIS TLAST";
   ATTRIBUTE X_INTERFACE_INFO OF m00_axis_tstrb: SIGNAL IS "xilinx.com:interface:axis:1.0 M00_AXIS TSTRB";
@@ -126,6 +116,16 @@ ARCHITECTURE mb_design_PearsonHashingCop_0_0_arch OF mb_design_PearsonHashingCop
   ATTRIBUTE X_INTERFACE_INFO OF m00_axis_aresetn: SIGNAL IS "xilinx.com:signal:reset:1.0 M00_AXIS_RST RST";
   ATTRIBUTE X_INTERFACE_PARAMETER OF m00_axis_aclk: SIGNAL IS "XIL_INTERFACENAME M00_AXIS_CLK, ASSOCIATED_BUSIF M00_AXIS, ASSOCIATED_RESET m00_axis_aresetn, FREQ_HZ 100000000, PHASE 0.0, CLK_DOMAIN /clk_wiz_1_clk_out1, INSERT_VIP 0";
   ATTRIBUTE X_INTERFACE_INFO OF m00_axis_aclk: SIGNAL IS "xilinx.com:signal:clock:1.0 M00_AXIS_CLK CLK";
+  ATTRIBUTE X_INTERFACE_INFO OF s00_axis_tvalid: SIGNAL IS "xilinx.com:interface:axis:1.0 S00_AXIS TVALID";
+  ATTRIBUTE X_INTERFACE_INFO OF s00_axis_tlast: SIGNAL IS "xilinx.com:interface:axis:1.0 S00_AXIS TLAST";
+  ATTRIBUTE X_INTERFACE_INFO OF s00_axis_tstrb: SIGNAL IS "xilinx.com:interface:axis:1.0 S00_AXIS TSTRB";
+  ATTRIBUTE X_INTERFACE_INFO OF s00_axis_tdata: SIGNAL IS "xilinx.com:interface:axis:1.0 S00_AXIS TDATA";
+  ATTRIBUTE X_INTERFACE_PARAMETER OF s00_axis_tready: SIGNAL IS "XIL_INTERFACENAME S00_AXIS, WIZ_DATA_WIDTH 32, TDATA_NUM_BYTES 4, TDEST_WIDTH 0, TID_WIDTH 0, TUSER_WIDTH 0, HAS_TREADY 1, HAS_TSTRB 1, HAS_TKEEP 0, HAS_TLAST 1, FREQ_HZ 100000000, PHASE 0.0, CLK_DOMAIN /clk_wiz_1_clk_out1, LAYERED_METADATA undef, INSERT_VIP 0";
+  ATTRIBUTE X_INTERFACE_INFO OF s00_axis_tready: SIGNAL IS "xilinx.com:interface:axis:1.0 S00_AXIS TREADY";
+  ATTRIBUTE X_INTERFACE_PARAMETER OF s00_axis_aresetn: SIGNAL IS "XIL_INTERFACENAME S00_AXIS_RST, POLARITY ACTIVE_LOW, INSERT_VIP 0";
+  ATTRIBUTE X_INTERFACE_INFO OF s00_axis_aresetn: SIGNAL IS "xilinx.com:signal:reset:1.0 S00_AXIS_RST RST";
+  ATTRIBUTE X_INTERFACE_PARAMETER OF s00_axis_aclk: SIGNAL IS "XIL_INTERFACENAME S00_AXIS_CLK, ASSOCIATED_BUSIF S00_AXIS, ASSOCIATED_RESET s00_axis_aresetn, FREQ_HZ 100000000, PHASE 0.0, CLK_DOMAIN /clk_wiz_1_clk_out1, INSERT_VIP 0";
+  ATTRIBUTE X_INTERFACE_INFO OF s00_axis_aclk: SIGNAL IS "xilinx.com:signal:clock:1.0 S00_AXIS_CLK CLK";
 BEGIN
   U0 : PearsonHashingCop_v1_0
     GENERIC MAP (
@@ -134,19 +134,19 @@ BEGIN
       C_S00_AXIS_TDATA_WIDTH => 32
     )
     PORT MAP (
-      m00_axis_aclk => m00_axis_aclk,
-      m00_axis_aresetn => m00_axis_aresetn,
-      m00_axis_tvalid => m00_axis_tvalid,
-      m00_axis_tdata => m00_axis_tdata,
-      m00_axis_tstrb => m00_axis_tstrb,
-      m00_axis_tlast => m00_axis_tlast,
-      m00_axis_tready => m00_axis_tready,
       s00_axis_aclk => s00_axis_aclk,
       s00_axis_aresetn => s00_axis_aresetn,
       s00_axis_tready => s00_axis_tready,
       s00_axis_tdata => s00_axis_tdata,
       s00_axis_tstrb => s00_axis_tstrb,
       s00_axis_tlast => s00_axis_tlast,
-      s00_axis_tvalid => s00_axis_tvalid
+      s00_axis_tvalid => s00_axis_tvalid,
+      m00_axis_aclk => m00_axis_aclk,
+      m00_axis_aresetn => m00_axis_aresetn,
+      m00_axis_tvalid => m00_axis_tvalid,
+      m00_axis_tdata => m00_axis_tdata,
+      m00_axis_tstrb => m00_axis_tstrb,
+      m00_axis_tlast => m00_axis_tlast,
+      m00_axis_tready => m00_axis_tready
     );
 END mb_design_PearsonHashingCop_0_0_arch;
