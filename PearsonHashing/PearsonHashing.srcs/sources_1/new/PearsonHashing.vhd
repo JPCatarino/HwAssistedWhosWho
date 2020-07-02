@@ -50,7 +50,7 @@ begin
     begin
         v_hash := hash;
         v_messageIn := messageIn;
-        for i in 0 to 4 loop
+        for i in 0 to 3 loop
             v_hash := STATIC_LUT(to_integer(unsigned(v_hash xor v_messageIn(31 downto 24))));
             v_messageIn := v_messageIn(23 downto 0) & "00000000";
         end loop;

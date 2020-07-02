@@ -20,7 +20,6 @@ Compiling architecture lut6_v of entity unisim.LUT6 [\LUT6(init="101111000000110
 Compiling architecture lut6_v of entity unisim.LUT6 [\LUT6(init="01010110010101100101...]
 Compiling architecture muxf7_v of entity unisim.MUXF7 [muxf7_default]
 Compiling architecture lut6_v of entity unisim.LUT6 [\LUT6(init="11101110111010111011...]
-Compiling architecture muxf8_v of entity unisim.MUXF8 [muxf8_default]
 Compiling architecture lut6_v of entity unisim.LUT6 [\LUT6(init="00101001100001110100...]
 Compiling architecture lut6_v of entity unisim.LUT6 [\LUT6(init="10000110011010100001...]
 Compiling architecture lut6_v of entity unisim.LUT6 [\LUT6(init="00110101010000101000...]
