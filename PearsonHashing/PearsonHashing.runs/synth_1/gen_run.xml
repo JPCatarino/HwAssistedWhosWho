@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="synth_1" LaunchPart="xc7a100tcsg324-1" LaunchTime="1593703132">
+<GenRun Id="synth_1" LaunchPart="xc7a100tcsg324-1" LaunchTime="1593709280">
   <File Type="PA-TCL" Name="PearsonHashing.tcl"/>
   <File Type="RDS-PROPCONSTRS" Name="PearsonHashing_drc_synth.rpt"/>
   <File Type="REPORTS-TCL" Name="PearsonHashing_reports.tcl"/>
@@ -25,6 +25,14 @@
   </FileSet>
   <FileSet Name="constrs_in" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1">
     <Filter Type="Constrs"/>
+    <File Path="$PSRCDIR/constrs_1/imports/utils/Nexys4_Master.xdc">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../CR/utils/Nexys4_Master.xdc"/>
+        <Attr Name="ImportTime" Val="1583191712"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+      </FileInfo>
+    </File>
     <Config>
       <Option Name="ConstrsType" Val="XDC"/>
     </Config>
