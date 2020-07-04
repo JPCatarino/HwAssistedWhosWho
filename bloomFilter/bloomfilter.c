@@ -33,4 +33,24 @@ void insertElem(bloomFilter* bfstruct, const void* elem){
     }     
 }
 
+bool containsElem(bloomFilter* bfstruct, const void* elem){
+    int arrIndex;
+    int maxCapacity;
 
+    maxCapacity = bfstruct->numPositions * BITS_PER_INT;
+
+    for(int i = 0; i != bfstruct->nHashFunctions; i++){
+        arrIndex = bfstruct->hashFunctions[i](elem) % maxCapacity;
+
+        if (!TestBit(bfstruct->bf, arrIndex)){
+            return false;
+        }
+    }
+    return true;
+}
+
+void clearBloomFilter(bloomFilter* bfstruct){
+    for(int i = 0; i != bfstruct->numPositions; i++){
+        bfstruct->bf[i] = 0;
+    }
+}
