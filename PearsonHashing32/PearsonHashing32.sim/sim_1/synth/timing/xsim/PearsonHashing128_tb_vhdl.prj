@@ -1,0 +1,6 @@
+# compile vhdl design source files
+vhdl xil_defaultlib  \
+"../../../../../PearsonHashing32.srcs/sim_1/imports/new/PearsonHashing128_tb.vhd" \
+
+# Do not sort compile order
+nosort
