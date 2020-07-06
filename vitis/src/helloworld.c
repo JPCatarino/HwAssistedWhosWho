@@ -86,7 +86,7 @@
 
 typedef int bool;
 
-typedef enum {StartMenu, TestMode, GameMode, Executing, SelectPerson, Finish} TFSMState;
+typedef enum {StartMenu, TestMode, GameMode, Executing, SelectPerson, Finish, None} TFSMState;
 
 typedef struct SButtonStatus
 {
@@ -124,9 +124,11 @@ static int val[]={	6	, 14	, 184	, 53	, 82	, 58	, 98	, 48	, 210	, 110	, 171	, 190
 					15	, 81	, 45	, 31	, 188	, 44	, 234	, 19	, 218	, 67	, 175	, 197	, 109	, 160	, 187	, 101	, 205	,
 					90	, 233	, 121	, 236	, 114	, 189	, 140	, 87	, 126	, 105	, 113	, 107	, 20	, 70	, 248	, 182	, 16	, 59};
 
+static unsigned int validButtons = 0x1F;
 static unsigned int count = 0;
 static unsigned int selectP = 0;
 static bool sel = FALSE;
+static int choice;
 
 
  /***************************** Helper functions ******************************/
@@ -175,7 +177,7 @@ static bool sel = FALSE;
  {
  	unsigned int buttonsPattern;
 
- 	buttonsPattern = XGpio_ReadReg(XPAR_AXI_GPIO_BUTTONS_BASEADDR, XGPIO_DATA_OFFSET);
+ 	buttonsPattern = XGpio_ReadReg(XPAR_AXI_GPIO_BUTTONS_BASEADDR, XGPIO_DATA_OFFSET) & validButtons;
 
  	pButtonStatus->upPressed    	= buttonsPattern & BUTTON_UP_MASK;
  	pButtonStatus->downPressed  	= buttonsPattern & BUTTON_DOWN_MASK;
@@ -184,8 +186,7 @@ static bool sel = FALSE;
  	pButtonStatus->leftPressed  	= buttonsPattern & BUTTON_LEFT_MASK;
  }
 
- void UpdateStateMachine(TFSMState* pFSMState, TButtonStatus* pButtonStatus,
- 	bool finished)
+ void UpdateStateMachine(TFSMState* pFSMState, TButtonStatus* pButtonStatus, char** characteristics, char** persons, char** buttons, bool finished)
  {
  	pButtonStatus->upPressed     = DetectAndClearRisingEdge(&pButtonStatus->upPrevious    , pButtonStatus->upPressed);
  	pButtonStatus->downPressed   = DetectAndClearRisingEdge(&pButtonStatus->downPrevious  , pButtonStatus->downPressed);
@@ -194,59 +195,117 @@ static bool sel = FALSE;
  	pButtonStatus->leftPressed   = DetectAndClearRisingEdge(&pButtonStatus->leftPrevious  , pButtonStatus->leftPressed);
 
  	switch (*pFSMState) {
-
  	case StartMenu:
- 		xil_printf("1");
-
  		if (pButtonStatus->rightPressed)
+ 		{
  			*pFSMState = TestMode;
+ 		}
  		else if(pButtonStatus->leftPressed)
+ 		{
+			xil_printf("\rChose characteristic:\n");
+			for (int i = 0; i < 5-count; i++)
+				xil_printf("\r%s%s\n", *(characteristics+i), *(buttons+i));
+			xil_printf("\n");
+
  			*pFSMState = GameMode;
+ 		}
  		break;
  	case TestMode:
  		if(finished)
 			*pFSMState = Finish;
  		break;
  	case GameMode:
- 		xil_printf("2");
-
 		if(pButtonStatus->upPressed | pButtonStatus->downPressed | pButtonStatus->centerPressed | pButtonStatus->rightPressed | pButtonStatus->leftPressed)
+		{
 			*pFSMState = Executing;
+		}
  		else if(sel)
-			*pFSMState = SelectPerson;
- 		break;
- 	case Executing:
- 		xil_printf("A");
+ 		{
+			xil_printf("\rChose person - left/right button\n");
+			xil_printf("\rSelect person - center button\n\n");
 
- 		if (pButtonStatus->centerPressed){
-			*pFSMState = GameMode;
-			count++;
+			*pFSMState = SelectPerson;
  		}
  		break;
- 	case SelectPerson:
- 		//xil_printf("3");
+ 	case Executing:
+		xil_printf("\rPersons:\n");
 
+		for  (int i = 0; i < 8; i++)
+			xil_printf("\r%d - %s\n", i, *(persons+i));
+		xil_printf("\n");
+
+		xil_printf("\rChose characteristic:\n");
+
+		for (int i = 0; i < 5; i++)
+			xil_printf("\r%s%s\n", *(characteristics+i), *(buttons+i));
+		xil_printf("\n");
+
+		count++;
+
+		*pFSMState = GameMode;
+ 		break;
+ 	case SelectPerson:
  		if (pButtonStatus->centerPressed)
-			*pFSMState = Finish;
+ 		{
+			xil_printf("\rClick center button to go back to the start menu\n\n");
+
+ 			*pFSMState = Finish;
+ 		}
  		break;
  	case Finish:
- 		xil_printf("4");
-
  		if(pButtonStatus->centerPressed)
+ 		{
+			xil_printf("\n\rChose game mode:\n");
+			xil_printf("\rNormal - left button\n");
+			xil_printf("\rTest - right button\n\n");
+
  			*pFSMState = StartMenu;
+ 		}
  		break;
  	default:
- 		print("Something wrong append");
+ 		xil_printf("Something wrong append");
  	}
  }
 
  void selectPerson(TFSMState fsmState,  const TButtonStatus* pButtonStatus, unsigned int modulo)
  {
 	 if (fsmState == SelectPerson) {
+		 validButtons = validButtons | 0x1F;
 		 if (pButtonStatus->rightPressed)
 			 ModularDec(&selectP, modulo);
 		else if (pButtonStatus->leftPressed)
 			 ModularInc(&selectP, modulo);
+	 }
+ }
+
+ void selectCharacteristic(TFSMState fsmState,  const TButtonStatus* pButtonStatus, char** characteristics, char** buttons)
+ {
+	 if (fsmState == GameMode) {
+		if (pButtonStatus->rightPressed)
+		{
+			validButtons = validButtons & 0x17;
+			*(buttons+1) = " - X";
+		}
+		else if (pButtonStatus->leftPressed)
+		{
+			validButtons = validButtons & 0x1D;
+			*(buttons) = " - X";
+		}
+		else if (pButtonStatus->upPressed)
+		{
+			validButtons = validButtons & 0x1E;
+			*(buttons+3) = " - X";
+		}
+		else if (pButtonStatus->downPressed)
+		{
+			validButtons = validButtons & 0x1B;
+			*(buttons+4) = " - X";
+		}
+		else if (pButtonStatus->centerPressed)
+		{
+			validButtons = validButtons & 0x0F;
+			*(buttons+2) = " - X";
+		}
 	 }
  }
 
@@ -373,20 +432,28 @@ void TimerIntCallbackHandler(void* callbackParam)
 	static unsigned hwTmrEventCount = 0;
 	hwTmrEventCount++;
 
-	static TFSMState     fsmState = StartMenu;
+	static char *characteristics[5] = {	"So tem 1 olho","Careca é favor","Se fosse mais magro nao se via","Elefantes tem orelhas mais pquenas","Qual sobrancelhas, bigode na testa"};
+	static char *buttons[5] = {" - left button"," - right button"," - center button"," - up button"," - down button"};
 
-	static bool finished = 0;
+	static char *persons[8] = {"Christian Guy", "Mike Litoris", "Moe Lester", "Dickie Head", "Jesus Condom", "Robert Fagot", "Beautiful Existence", "Willie Stroker"};
+
+	static int data[5][8] = {{1,4,5,8,7},{1,2,4,7,8},{1,3,5,6,7},{2,3,5,6,8},{2,3,4,6}};
+
+	static TFSMState     fsmState = Finish;
+
+	static bool finished = FALSE;
 
 	if (hwTmrEventCount % 100 == 0) // 8Hz
 	{
-		UpdateStateMachine(&fsmState, &buttonStatus, finished);
+		selectCharacteristic(fsmState, &buttonStatus, &characteristics, &buttons);
+		selectPerson(fsmState, &buttonStatus,8);
+
+		UpdateStateMachine(&fsmState, &buttonStatus, &characteristics, &persons, &buttons, finished);
 
 		if (count == 3)
 		{
 			sel = TRUE;
 		}
-
-		selectPerson(fsmState, &buttonStatus,9);
 	}
 
 #ifdef __USE_AXI_HW_TIMER__		// if AXI hardware timer is used
@@ -492,7 +559,7 @@ int main()
 		return XST_FAILURE;
 	}
 	xil_printf("\n\rInterrupts setup successful.");
-
+/*
 	xil_printf("\n\rSoftware Only vs. Hardware Assisted Hash Function Demonstration\n\r");
 
 	RestartPerformanceTimer();
@@ -526,6 +593,9 @@ int main()
 	PrintDataArray(dstData, sizeof(srcData)/(sizeof(char)*2)-1);
 	xil_printf("\n\rChecking result: %s\n\r",
 			CheckhashFunction(srcData, dstData, sizeof(srcData)/sizeof(char)-1) ? "OK" : "Error");
+*/
+	choice = (int) rand()*7.99;
+	xil_printf("\rClick center button to go to the start menu\n\n");
 
 	while (1)
 		{
