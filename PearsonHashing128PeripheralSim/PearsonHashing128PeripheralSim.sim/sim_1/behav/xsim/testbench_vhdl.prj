@@ -1,0 +1,9 @@
+# compile vhdl design source files
+vhdl xil_defaultlib  \
+"../../../../../ip_repo/PearsonHashing128Peripheral_1.0/src/PearsonHashing.vhd" \
+"../../../../../ip_repo/PearsonHashing128Peripheral_1.0/hdl/PearsonHashing128Peripheral_v1_0.vhd" \
+"../../../../../ip_repo/PearsonHashing128Peripheral_1.0/hdl/PearsonHashing128Peripheral_v1_0_S00_AXI.vhd" \
+"../../../../PearsonHashing128PeripheralSim.srcs/sim_1/imports/src/PearsonHashingPeripheral_tb.vhd" \
+
+# Do not sort compile order
+nosort
