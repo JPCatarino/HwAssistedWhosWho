@@ -54,7 +54,7 @@ begin
 	
 	p_hash: djb2
                port map(messageIn => S_AXIS_TDATA,
-                        reset => S_AXIS_ARESETN,
+                        reset => s_reset,
 						hashOut => s_hashOut);
                         
     s_ready <= (not s_validOut) or readEnabled;

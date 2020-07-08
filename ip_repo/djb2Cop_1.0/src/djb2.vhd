@@ -40,13 +40,13 @@ end djb2;
 architecture Behavioral of djb2 is
     signal s_reset : std_logic;
     signal s_counter : unsigned(1 downto 0);
-    signal s_hash : std_logic_vector(31 downto 0) := x"00001505";
+    signal s_hash, s_hashCarry : std_logic_vector(31 downto 0) := x"00001505";
 begin
     process(messageIn)
         variable v_hash  : unsigned(31 downto 0);
         variable v_messageIn : unsigned(31 downto 0);
     begin
-        v_hash := unsigned(s_hash);
+        v_hash := unsigned(s_hashCarry);
         v_messageIn := unsigned(messageIn);
         
         for i in 0 to 3 loop
@@ -64,9 +64,9 @@ begin
     process(reset)
     begin
         if(reset = '1') then
-            s_hash <= x"00001505";
+            s_hashCarry <= x"00001505";
         else
-            s_hash <= s_hash;
+            s_hashCarry <= s_hashCarry;
         end if;
     end process;
 end Behavioral;
