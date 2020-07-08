@@ -57,6 +57,8 @@
 #include "xil_exception.h"
 #include "xgpio_l.h"
 #include "xil_io.h"
+#include "bloomfilter.h"
+#include <stdbool.h>
 
 /************************** Constant Definitions *****************************/
 
@@ -84,8 +86,6 @@
 
 /******************************** Data types *********************************/
 
-typedef int bool;
-
 typedef enum {StartMenu, TestMode, GameMode, Executing, SelectPerson, Finish, None} TFSMState;
 
 typedef struct SButtonStatus
@@ -106,7 +106,7 @@ typedef struct SButtonStatus
 
 /********************** Global variables (module scope) **********************/
 
-static TButtonStatus buttonStatus = { FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE };
+static TButtonStatus buttonStatus = { false, false, false, false, false, false, false, false, false, false };
 
 static int val[]={	6	, 14	, 184	, 53	, 82	, 58	, 98	, 48	, 210	, 110	, 171	, 190	, 22	, 75	, 170	, 244	, 183	,
 					166	, 63	, 80	, 132	, 97	, 148	, 235	, 52	, 66	, 220	, 141	, 254	, 211	, 68	, 230	, 12	, 72	,
@@ -125,10 +125,11 @@ static int val[]={	6	, 14	, 184	, 53	, 82	, 58	, 98	, 48	, 210	, 110	, 171	, 190
 					90	, 233	, 121	, 236	, 114	, 189	, 140	, 87	, 126	, 105	, 113	, 107	, 20	, 70	, 248	, 182	, 16	, 59};
 
 static unsigned int validButtons = 0x1F;
-static unsigned int count = 0;
 static unsigned int selectP = 0;
-static bool sel = FALSE;
 static int choice;
+
+static unsigned int count = 0;
+static bool sel = false;
 
 
  /***************************** Helper functions ******************************/
@@ -147,12 +148,12 @@ static int choice;
  	if (*pValue < modulo - 1)
  	{
  		(*pValue)++;
- 		return FALSE;
+ 		return false;
  	}
  	else
  	{
  		*pValue = 0;
- 		return TRUE;
+ 		return true;
  	}
  }
 
@@ -161,13 +162,38 @@ static int choice;
  	if (*pValue > 0)
  	{
  		(*pValue)--;
- 		return FALSE;
+ 		return false;
  	}
  	else
  	{
  		*pValue = modulo - 1;
- 		return TRUE;
+ 		return true;
  	}
+ }
+
+ void ResetPerformanceTimer()
+ {
+ 	XTmrCtr_Disable(XPAR_TMRCTR_0_BASEADDR, 0);
+ 	XTmrCtr_SetLoadReg(XPAR_TMRCTR_0_BASEADDR, 0, 0x00000001);
+ 	XTmrCtr_LoadTimerCounterReg(XPAR_TMRCTR_0_BASEADDR, 0);
+ 	XTmrCtr_SetControlStatusReg(XPAR_TMRCTR_0_BASEADDR, 0, 0x00000000);
+ }
+
+ void RestartPerformanceTimer()
+ {
+ 	ResetPerformanceTimer();
+ 	XTmrCtr_Enable(XPAR_TMRCTR_0_BASEADDR, 0);
+ }
+
+ unsigned int GetPerformanceTimer()
+ {
+ 	return XTmrCtr_GetTimerCounterReg(XPAR_TMRCTR_0_BASEADDR, 0);
+ }
+
+ unsigned int StopAndGetPerformanceTimer()
+ {
+ 	XTmrCtr_Disable(XPAR_TMRCTR_0_BASEADDR, 0);
+ 	return GetPerformanceTimer();
  }
 
  /******************* Game operation functions ********************/
@@ -186,7 +212,7 @@ static int choice;
  	pButtonStatus->leftPressed  	= buttonsPattern & BUTTON_LEFT_MASK;
  }
 
- void UpdateStateMachine(TFSMState* pFSMState, TButtonStatus* pButtonStatus, char** characteristics, char** persons, char** buttons, bool finished)
+ void UpdateStateMachine(TFSMState* pFSMState, TButtonStatus* pButtonStatus, char** characteristics, char** persons, char** buttons, char** ids, bool finished)
  {
  	pButtonStatus->upPressed     = DetectAndClearRisingEdge(&pButtonStatus->upPrevious    , pButtonStatus->upPressed);
  	pButtonStatus->downPressed   = DetectAndClearRisingEdge(&pButtonStatus->downPrevious  , pButtonStatus->downPressed);
@@ -231,7 +257,7 @@ static int choice;
 		xil_printf("\rPersons:\n");
 
 		for  (int i = 0; i < 8; i++)
-			xil_printf("\r%d - %s\n", i, *(persons+i));
+			xil_printf("\r%s%s\n", *(ids+i), *(persons+i));
 		xil_printf("\n");
 
 		xil_printf("\rChose characteristic:\n");
@@ -247,8 +273,6 @@ static int choice;
  	case SelectPerson:
  		if (pButtonStatus->centerPressed)
  		{
-			xil_printf("\rClick center button to go back to the start menu\n\n");
-
  			*pFSMState = Finish;
  		}
  		break;
@@ -267,45 +291,118 @@ static int choice;
  	}
  }
 
- void selectPerson(TFSMState fsmState,  const TButtonStatus* pButtonStatus, unsigned int modulo)
+ void selectPerson(TFSMState fsmState,  const TButtonStatus* pButtonStatus, unsigned int modulo, char** ids)
  {
 	 if (fsmState == SelectPerson) {
 		 validButtons = validButtons | 0x1F;
-		 if (pButtonStatus->rightPressed)
-			 ModularDec(&selectP, modulo);
-		else if (pButtonStatus->leftPressed)
-			 ModularInc(&selectP, modulo);
+		 do{
+			 if (pButtonStatus->rightPressed)
+				 ModularDec(&selectP, modulo);
+			else if (pButtonStatus->leftPressed)
+				 ModularInc(&selectP, modulo);
+		 }
+		 while(*(ids+selectP) == "X - ");
 	 }
  }
 
- void selectCharacteristic(TFSMState fsmState,  const TButtonStatus* pButtonStatus, char** characteristics, char** buttons)
+ void selectCharacteristic(TFSMState fsmState,  const TButtonStatus* pButtonStatus, char** characteristics, char** buttons, int *charac)
  {
-	 if (fsmState == GameMode) {
+	 if (fsmState == Executing) {
 		if (pButtonStatus->rightPressed)
 		{
 			validButtons = validButtons & 0x17;
 			*(buttons+1) = " - X";
+			*charac = 1;
 		}
 		else if (pButtonStatus->leftPressed)
 		{
 			validButtons = validButtons & 0x1D;
 			*(buttons) = " - X";
+			*charac = 0;
 		}
 		else if (pButtonStatus->upPressed)
 		{
 			validButtons = validButtons & 0x1E;
 			*(buttons+3) = " - X";
+			*charac = 3;
 		}
 		else if (pButtonStatus->downPressed)
 		{
 			validButtons = validButtons & 0x1B;
 			*(buttons+4) = " - X";
+			*charac = 4;
 		}
 		else if (pButtonStatus->centerPressed)
 		{
 			validButtons = validButtons & 0x0F;
 			*(buttons+2) = " - X";
+			*charac = 2;
 		}
+	 }
+ }
+ void filter(TFSMState fsmState, char** characteristics, char** ids, int *charac, int data[8][3], bloomFilter *bloom_filter)
+ {
+	 if (fsmState == Executing) {
+		if(!containsElem(bloom_filter, *(characteristics + *charac))){
+			for (int i = 0; i < 8; i++){
+				for (int j = 0; j < 3; j++){
+					if(data[i][j] == *charac){
+						*(ids + i)= "X - ";
+						break;
+					}
+				}
+			}
+		}
+		else{
+			for (int i = 0; i < 8; i++){
+				for (int j = 0; j < 3; j++){
+					if(data[i][j] != *charac){
+						*(ids + i)= "X - ";
+						break;
+					}
+				}
+			}
+		}
+		*charac=-1;
+	 }
+ }
+
+ void result(TFSMState fsmState)
+ {
+	if(fsmState == Finish && sel)
+	{
+		if (choice == selectP)
+			xil_printf("\rwin\n\n");
+		else
+			xil_printf("\rlose\n\n");
+	}
+ }
+
+ void reset(TFSMState fsmState, char** buttons, char** ids)
+ {
+	 if(fsmState == Finish && sel)
+	 {
+	*(buttons) = " - left button";
+	*(buttons+1) = " - right button";
+	*(buttons+2) = " - center button";
+	*(buttons+3) = " - up button";
+	*(buttons+4) = " - down button";
+
+	*(ids) = "0 - ";
+	*(ids+1) = "1 - ";
+	*(ids+2) = "2 - ";
+	*(ids+3) = "3 - ";
+	*(ids+4) = "4 - ";
+	*(ids+5) = "5 - ";
+	*(ids+6) = "6 - ";
+	*(ids+7) = "7 - ";
+
+	count = 0;
+	sel=false;
+
+	choice = (int) rand()*7.99;
+
+	xil_printf("\rClick center button to go back to the start menu\n\n");
 	 }
  }
 
@@ -353,11 +450,11 @@ bool CheckhashFunction(char* pData1, char* pData2, unsigned int size)
 
 		if (*pData2 != hash)
 		{
-			return FALSE;
+			return false;
 		}
 	}
 
-	return TRUE;
+	return true;
 }
 
 void PrintDataArray(char* pData, unsigned int size)
@@ -371,30 +468,7 @@ void PrintDataArray(char* pData, unsigned int size)
 	}
 }
 
-void ResetPerformanceTimer()
-{
-	XTmrCtr_Disable(XPAR_TMRCTR_0_BASEADDR, 0);
-	XTmrCtr_SetLoadReg(XPAR_TMRCTR_0_BASEADDR, 0, 0x00000001);
-	XTmrCtr_LoadTimerCounterReg(XPAR_TMRCTR_0_BASEADDR, 0);
-	XTmrCtr_SetControlStatusReg(XPAR_TMRCTR_0_BASEADDR, 0, 0x00000000);
-}
 
-void RestartPerformanceTimer()
-{
-	ResetPerformanceTimer();
-	XTmrCtr_Enable(XPAR_TMRCTR_0_BASEADDR, 0);
-}
-
-unsigned int GetPerformanceTimer()
-{
-	return XTmrCtr_GetTimerCounterReg(XPAR_TMRCTR_0_BASEADDR, 0);
-}
-
-unsigned int StopAndGetPerformanceTimer()
-{
-	XTmrCtr_Disable(XPAR_TMRCTR_0_BASEADDR, 0);
-	return GetPerformanceTimer();
-}
 
 /************************ Interrupt callback functions ***********************/
 
@@ -432,29 +506,43 @@ void TimerIntCallbackHandler(void* callbackParam)
 	static unsigned hwTmrEventCount = 0;
 	hwTmrEventCount++;
 
+    bloomFilter* bloom_filter;
+
 	static char *characteristics[5] = {	"So tem 1 olho","Careca é favor","Se fosse mais magro nao se via","Elefantes tem orelhas mais pquenas","Qual sobrancelhas, bigode na testa"};
 	static char *buttons[5] = {" - left button"," - right button"," - center button"," - up button"," - down button"};
 
 	static char *persons[8] = {"Christian Guy", "Mike Litoris", "Moe Lester", "Dickie Head", "Jesus Condom", "Robert Fagot", "Beautiful Existence", "Willie Stroker"};
+	static char *ids[8] = {"0 - ", "1 - ", "2 - ", "3 - ", "4 - ", "5 - ", "6 - ", "7 - "};
 
-	static int data[5][8] = {{1,4,5,8,7},{1,2,4,7,8},{1,3,5,6,7},{2,3,5,6,8},{2,3,4,6}};
+	static int data[8][3] = {{0,2,4},{1,2,4},{0,1,3},{0,1,2},{2,3,4},{1,2,3},{0,1,4},{0,3,2}};
+
+	static int charac =-1;
 
 	static TFSMState     fsmState = Finish;
 
-	static bool finished = FALSE;
+	static bool finished = false;
 
-	if (hwTmrEventCount % 100 == 0) // 8Hz
+	if (hwTmrEventCount % 100 == 0) // 4Hz
 	{
-		selectCharacteristic(fsmState, &buttonStatus, &characteristics, &buttons);
-		selectPerson(fsmState, &buttonStatus,8);
+		UpdateStateMachine(&fsmState, &buttonStatus, &characteristics, &persons, &buttons, &ids, finished);
 
-		UpdateStateMachine(&fsmState, &buttonStatus, &characteristics, &persons, &buttons, finished);
+		selectCharacteristic(fsmState, &buttonStatus, &characteristics, &buttons, &charac);
 
 		if (count == 3)
 		{
-			sel = TRUE;
+			sel = true;
 		}
+
+		filter(fsmState, &characteristics, &ids, &charac, &data, &bloom_filter);
+
+		selectPerson(fsmState, &buttonStatus, 8, &ids);
+
+		result(fsmState);
+
+		reset(fsmState, &buttons, &ids);
+
 	}
+
 
 #ifdef __USE_AXI_HW_TIMER__		// if AXI hardware timer is used
 	// Clear hardware timer event (interrupt request flag)
