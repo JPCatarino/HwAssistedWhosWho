@@ -1,4 +1,5 @@
 from random import shuffle
+import textwrap
 
 example_table = list(range(0,256))
 shuffle(example_table)
@@ -25,5 +26,38 @@ def hash8(message: str, table) -> int:
         hash = table[hash ^ ord(i)]
     return hash
 
-print("Gordo: ", hash8("gordo", static_LUT))
-print("Nariz Pontiagudo: ", hash8("Nariz Pontiagudo", static_LUT))
+def hash32(message: str, table) -> int:
+    hh = []
+    for j in range(4):
+        hash = table[(ord(message[0]) + j) % 256]
+        for i in message[1:]:
+            hash = table[hash ^ ord(i)]
+        hh.append(hash)
+    return int(str(hh[0]) + str(hh[1]) + str(hh[2]) + str(hh[3]))  
+
+def decimalToBinary(n):
+    return bin(n).replace("0b", "0")
+
+def stringToBinary(s):
+    ret = ""
+    for i in s:
+        nv = bin(ord(i)).replace("0b", "")
+        while (len(nv) != 8):
+            nv = '0' + nv
+        ret += nv
+    return "".join(ret)
+
+b = "helpmeisewrjflrk"
+
+test1 = "abcd"
+test2 = "defg"
+test3 = "hijk"
+test4 = "lmno"
+
+print("test 1:", hex(hash8(test1, static_LUT)))
+
+print("test 2:", hex(hash8(test2, static_LUT)))
+
+print("test 3:", hex(hash8(test3, static_LUT)))
+
+print("test 4:", hex(hash8(test4, static_LUT)))

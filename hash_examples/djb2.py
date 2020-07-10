@@ -5,4 +5,8 @@ def djb2(s):
         hash = ((hash << 5) + hash) + ord(x)
     return hash & 0xFFFFFFFF
 
-print(djb2("Nariz Pontiagudo"))
+print(hex(ord("a")))
+print(hex(ord("b")))
+print(hex(ord("c")))
+print(hex(ord("d")))
+print(hex(djb2("abcd")))
