@@ -147,16 +147,7 @@ begin
         S_AXI_WSTRB<=b"0000";
             
         S_AXI_AWADDR<=b"00000";
-        S_AXI_WDATA<=x"00000001";
-        S_AXI_WSTRB<=b"1111";
-        sendIt<='1';                --Start AXI Write to Slave
-        wait for 1 ns; sendIt<='0'; --Clear Start Send Flag
-    wait until S_AXI_BVALID = '1';
-    wait until S_AXI_BVALID = '0';  --AXI Write finished
-        S_AXI_WSTRB<=b"0000";
-        
-        S_AXI_AWADDR<=b"00000";
-        S_AXI_WDATA<=x"00000002";
+        S_AXI_WDATA<=x"61626364";
         S_AXI_WSTRB<=b"1111";
         sendIt<='1';                --Start AXI Write to Slave
         wait for 1 ns; sendIt<='0'; --Clear Start Send Flag
@@ -165,7 +156,7 @@ begin
         S_AXI_WSTRB<=b"0000";
         
         S_AXI_AWADDR<=b"00100";
-        S_AXI_WDATA<=x"A5A5A5A5";
+        S_AXI_WDATA<=x"64656667";
         S_AXI_WSTRB<=b"1111";
         sendIt<='1';                --Start AXI Write to Slave
         wait for 1 ns; sendIt<='0'; --Clear Start Send Flag
@@ -173,16 +164,24 @@ begin
     wait until S_AXI_BVALID = '0';  --AXI Write finished
         S_AXI_WSTRB<=b"0000";
         
-        S_AXI_ARADDR<=b"00000";
-        readIt<='1';                --Start AXI Read from Slave
-        wait for 1 ns; readIt<='0'; --Clear "Start Read" Flag
-    wait until S_AXI_RVALID = '1';
-    wait until S_AXI_RVALID = '0';
-        S_AXI_ARADDR<=b"00100";
-        readIt<='1';                --Start AXI Read from Slave
-        wait for 1 ns; readIt<='0'; --Clear "Start Read" Flag
-    wait until S_AXI_RVALID = '1';
-    wait until S_AXI_RVALID = '0';
+        S_AXI_AWADDR<=b"01000";
+        S_AXI_WDATA<=x"68696A6B";
+        S_AXI_WSTRB<=b"1111";
+        sendIt<='1';                --Start AXI Write to Slave
+        wait for 1 ns; sendIt<='0'; --Clear Start Send Flag
+    wait until S_AXI_BVALID = '1';
+    wait until S_AXI_BVALID = '0';  --AXI Write finished
+        S_AXI_WSTRB<=b"0000";
+        
+        S_AXI_AWADDR<=b"01100";
+        S_AXI_WDATA<=x"6C6D6E6F";
+        S_AXI_WSTRB<=b"1111";
+        sendIt<='1';                --Start AXI Write to Slave
+        wait for 1 ns; sendIt<='0'; --Clear Start Send Flag
+    wait until S_AXI_BVALID = '1';
+    wait until S_AXI_BVALID = '0';  --AXI Write finished
+        S_AXI_WSTRB<=b"0000";
+
         S_AXI_ARADDR<=b"10000";
         readIt<='1';                --Start AXI Read from Slave
         wait for 1 ns; readIt<='0'; --Clear "Start Read" Flag
