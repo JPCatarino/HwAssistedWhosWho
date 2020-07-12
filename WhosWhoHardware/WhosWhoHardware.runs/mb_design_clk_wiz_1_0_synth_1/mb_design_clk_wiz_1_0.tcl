@@ -33,7 +33,7 @@ set_property default_lib xil_defaultlib [current_project]
 set_property target_language VHDL [current_project]
 set_property board_part digilentinc.com:nexys4:part0:1.1 [current_project]
 set_property ip_repo_paths {
-  c:/HwAssistedWhosWho/ip_repo/PearsonHashingCop_1.0
+  c:/HwAssistedWhosWho/ip_repo
   c:/CR/projects/ip_repo
 } [current_project]
 update_ip_catalog

@@ -17,7 +17,6 @@ proc create_report { reportName command } {
     send_msg_id runtcl-5 warning "$msg"
   }
 }
-set_param chipscope.maxJobs 3
 create_project -in_memory -part xc7a100tcsg324-1
 
 set_param project.singleFileAddWarning.threshold 0
@@ -31,7 +30,7 @@ set_property default_lib xil_defaultlib [current_project]
 set_property target_language VHDL [current_project]
 set_property board_part digilentinc.com:nexys4:part0:1.1 [current_project]
 set_property ip_repo_paths {
-  c:/HwAssistedWhosWho/ip_repo/PearsonHashingCop_1.0
+  c:/HwAssistedWhosWho/ip_repo
   c:/CR/projects/ip_repo
 } [current_project]
 update_ip_catalog
@@ -69,18 +68,18 @@ set_property used_in_implementation false [get_files -all c:/HwAssistedWhosWho/W
 set_property used_in_implementation false [get_files -all c:/HwAssistedWhosWho/WhosWhoHardware/WhosWhoHardware.srcs/sources_1/bd/mb_design/ip/mb_design_axi_timer_0_0/mb_design_axi_timer_0_0.xdc]
 set_property used_in_implementation false [get_files -all c:/HwAssistedWhosWho/WhosWhoHardware/WhosWhoHardware.srcs/sources_1/bd/mb_design/ip/mb_design_axi_timer_0_0/mb_design_axi_timer_0_0_ooc.xdc]
 set_property used_in_implementation false [get_files -all c:/HwAssistedWhosWho/WhosWhoHardware/WhosWhoHardware.srcs/sources_1/bd/mb_design/ip/mb_design_fit_timer_0_0/mb_design_fit_timer_0_0_ooc.xdc]
-set_property used_in_implementation false [get_files -all c:/HwAssistedWhosWho/WhosWhoHardware/WhosWhoHardware.srcs/sources_1/bd/mb_design/ip/mb_design_microblaze_0_2/mb_design_microblaze_0_2.xdc]
-set_property used_in_implementation false [get_files -all c:/HwAssistedWhosWho/WhosWhoHardware/WhosWhoHardware.srcs/sources_1/bd/mb_design/ip/mb_design_microblaze_0_2/mb_design_microblaze_0_2_ooc_debug.xdc]
-set_property used_in_implementation false [get_files -all c:/HwAssistedWhosWho/WhosWhoHardware/WhosWhoHardware.srcs/sources_1/bd/mb_design/ip/mb_design_microblaze_0_2/mb_design_microblaze_0_2_ooc.xdc]
-set_property used_in_implementation false [get_files -all c:/HwAssistedWhosWho/WhosWhoHardware/WhosWhoHardware.srcs/sources_1/bd/mb_design/ip/mb_design_dlmb_v10_2/mb_design_dlmb_v10_2.xdc]
-set_property used_in_implementation false [get_files -all c:/HwAssistedWhosWho/WhosWhoHardware/WhosWhoHardware.srcs/sources_1/bd/mb_design/ip/mb_design_dlmb_v10_2/mb_design_dlmb_v10_2_ooc.xdc]
-set_property used_in_implementation false [get_files -all c:/HwAssistedWhosWho/WhosWhoHardware/WhosWhoHardware.srcs/sources_1/bd/mb_design/ip/mb_design_ilmb_v10_2/mb_design_ilmb_v10_2.xdc]
-set_property used_in_implementation false [get_files -all c:/HwAssistedWhosWho/WhosWhoHardware/WhosWhoHardware.srcs/sources_1/bd/mb_design/ip/mb_design_ilmb_v10_2/mb_design_ilmb_v10_2_ooc.xdc]
-set_property used_in_implementation false [get_files -all c:/HwAssistedWhosWho/WhosWhoHardware/WhosWhoHardware.srcs/sources_1/bd/mb_design/ip/mb_design_dlmb_bram_if_cntlr_2/mb_design_dlmb_bram_if_cntlr_2_ooc.xdc]
-set_property used_in_implementation false [get_files -all c:/HwAssistedWhosWho/WhosWhoHardware/WhosWhoHardware.srcs/sources_1/bd/mb_design/ip/mb_design_ilmb_bram_if_cntlr_2/mb_design_ilmb_bram_if_cntlr_2_ooc.xdc]
-set_property used_in_implementation false [get_files -all c:/HwAssistedWhosWho/WhosWhoHardware/WhosWhoHardware.srcs/sources_1/bd/mb_design/ip/mb_design_lmb_bram_2/mb_design_lmb_bram_2_ooc.xdc]
+set_property used_in_implementation false [get_files -all c:/HwAssistedWhosWho/WhosWhoHardware/WhosWhoHardware.srcs/sources_1/bd/mb_design/ip/mb_design_microblaze_0_3/mb_design_microblaze_0_3.xdc]
+set_property used_in_implementation false [get_files -all c:/HwAssistedWhosWho/WhosWhoHardware/WhosWhoHardware.srcs/sources_1/bd/mb_design/ip/mb_design_microblaze_0_3/mb_design_microblaze_0_3_ooc_debug.xdc]
+set_property used_in_implementation false [get_files -all c:/HwAssistedWhosWho/WhosWhoHardware/WhosWhoHardware.srcs/sources_1/bd/mb_design/ip/mb_design_microblaze_0_3/mb_design_microblaze_0_3_ooc.xdc]
+set_property used_in_implementation false [get_files -all c:/HwAssistedWhosWho/WhosWhoHardware/WhosWhoHardware.srcs/sources_1/bd/mb_design/ip/mb_design_dlmb_v10_3/mb_design_dlmb_v10_3.xdc]
+set_property used_in_implementation false [get_files -all c:/HwAssistedWhosWho/WhosWhoHardware/WhosWhoHardware.srcs/sources_1/bd/mb_design/ip/mb_design_dlmb_v10_3/mb_design_dlmb_v10_3_ooc.xdc]
+set_property used_in_implementation false [get_files -all c:/HwAssistedWhosWho/WhosWhoHardware/WhosWhoHardware.srcs/sources_1/bd/mb_design/ip/mb_design_ilmb_v10_3/mb_design_ilmb_v10_3.xdc]
+set_property used_in_implementation false [get_files -all c:/HwAssistedWhosWho/WhosWhoHardware/WhosWhoHardware.srcs/sources_1/bd/mb_design/ip/mb_design_ilmb_v10_3/mb_design_ilmb_v10_3_ooc.xdc]
+set_property used_in_implementation false [get_files -all c:/HwAssistedWhosWho/WhosWhoHardware/WhosWhoHardware.srcs/sources_1/bd/mb_design/ip/mb_design_dlmb_bram_if_cntlr_3/mb_design_dlmb_bram_if_cntlr_3_ooc.xdc]
+set_property used_in_implementation false [get_files -all c:/HwAssistedWhosWho/WhosWhoHardware/WhosWhoHardware.srcs/sources_1/bd/mb_design/ip/mb_design_ilmb_bram_if_cntlr_3/mb_design_ilmb_bram_if_cntlr_3_ooc.xdc]
+set_property used_in_implementation false [get_files -all c:/HwAssistedWhosWho/WhosWhoHardware/WhosWhoHardware.srcs/sources_1/bd/mb_design/ip/mb_design_lmb_bram_3/mb_design_lmb_bram_3_ooc.xdc]
 set_property used_in_implementation false [get_files -all C:/HwAssistedWhosWho/WhosWhoHardware/WhosWhoHardware.srcs/sources_1/bd/mb_design/mb_design_ooc.xdc]
-set_property used_in_implementation false [get_files -all c:/HwAssistedWhosWho/WhosWhoHardware/WhosWhoHardware.srcs/sources_1/bd/mb_design/ip/mb_design_microblaze_0_2/data/mb_bootloop_le.elf]
+set_property used_in_implementation false [get_files -all c:/HwAssistedWhosWho/WhosWhoHardware/WhosWhoHardware.srcs/sources_1/bd/mb_design/ip/mb_design_microblaze_0_3/data/mb_bootloop_le.elf]
 
 # Mark all dcp files as not used in implementation to prevent them from being
 # stitched into the results of this synthesis run. Any black boxes in the
