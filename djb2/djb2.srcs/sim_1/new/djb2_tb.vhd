@@ -45,5 +45,16 @@ begin
             hashOut => hashOut
           );
     
-    messageIn <= x"61626364";
+    process
+    begin
+        messageIn <= "01100001011000100110001101100100"; -- abcd
+        wait for 10 ns;
+        messageIn <= "01100100011001010110011001100111"; -- defg
+        wait for 10 ns;
+        messageIn <= "01101000011010010110101001101011"; -- hijk
+        wait for 10 ns;
+        messageIn <= "01101100011011010110111001101111"; -- lmno
+        wait for 10 ns;
+    end process;
+    
 end tb;
