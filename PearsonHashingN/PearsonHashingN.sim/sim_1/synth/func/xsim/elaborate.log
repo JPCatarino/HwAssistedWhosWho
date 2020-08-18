@@ -1,7 +1,0 @@
-Vivado Simulator 2019.2
-Copyright 1986-1999, 2001-2019 Xilinx, Inc. All Rights Reserved.
-Running: C:/Xilinx/Vivado/2019.2/bin/unwrapped/win64.o/xelab.exe -wto d27ec749265f456a8e2717d9a248cd4a --incr --debug typical --relax --mt 2 -L xil_defaultlib -L secureip --snapshot PearsonHashingN_tb_func_synth xil_defaultlib.PearsonHashingN_tb -log elaborate.log 
-Using 2 slave threads.
-Starting static elaboration
-ERROR: [VRFC 10-3146] binding entity 'pearsonhashingn' does not have generic 'n' [C:/HwAssistedWhosWho/PearsonHashingN/PearsonHashingN.srcs/sim_1/imports/new/PearsonHashingN_tb.vhd:40]
-ERROR: [XSIM 43-3321] Static elaboration of top level VHDL design unit pearsonhashingn_tb in library work failed.

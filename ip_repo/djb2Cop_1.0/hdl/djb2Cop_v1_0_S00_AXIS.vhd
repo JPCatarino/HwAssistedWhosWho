@@ -40,12 +40,10 @@ end djb2Cop_v1_0_S00_AXIS;
 architecture arch_imp of djb2Cop_v1_0_S00_AXIS is
     signal s_countData   : std_logic_vector(C_S_AXIS_TDATA_WIDTH - 1 downto 0);
     signal s_hashOut     : std_logic_vector(31 downto 0);
-    signal s_validOut, s_ready, s_reset : std_logic;
-    signal s_counter : unsigned(1 downto 0);
+    signal s_validOut, s_ready: std_logic;
     
     component djb2 is
 		port (
-		   reset      : in STD_LOGIC;
 		   messageIn : in STD_LOGIC_VECTOR (31 downto 0);
            hashOut : out STD_LOGIC_VECTOR (31 downto 0)
 		);
@@ -54,25 +52,9 @@ begin
 	
 	p_hash: djb2
                port map(messageIn => S_AXIS_TDATA,
-                        reset => s_reset,
 						hashOut => s_hashOut);
                         
     s_ready <= (not s_validOut) or readEnabled;
-    
-    process(S_AXIS_TVALID)
-    begin
-        if(S_AXIS_TVALID = '1') then
-            s_counter <= s_counter + 1;
-        end if;
-    end process;
-        
-        
-    process(s_counter)
-    begin
-        if(s_counter = "11") then
-            s_reset <= '1';
-        end if;
-    end process;
     
     process(S_AXIS_ACLK)
 	begin

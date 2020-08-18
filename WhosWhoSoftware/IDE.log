@@ -1,0 +1,8 @@
+03:44:10 INFO  : Launching XSCT server: xsct.bat -n  -interactive C:\Users\jorpc\Desktop\CR_ProjFinal_P2G3\WhosWhoSoftware\temp_xsdb_launch_script.tcl
+03:44:12 INFO  : XSCT server has started successfully.
+03:44:12 INFO  : plnx-install-location is set to ''
+03:44:12 INFO  : Successfully done setting XSCT server connection channel  
+03:44:13 INFO  : Successfully done setting workspace for the tool. 
+03:44:13 INFO  : Successfully done query RDI_DATADIR 
+03:44:13 INFO  : Registering command handlers for Vitis TCF services
+03:44:29 INFO  : Platform 'agoravaiser' is added to custom repositories.

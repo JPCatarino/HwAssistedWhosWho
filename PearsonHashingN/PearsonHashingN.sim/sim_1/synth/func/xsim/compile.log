@@ -1,4 +1,0 @@
-INFO: [VRFC 10-163] Analyzing VHDL file "C:/HwAssistedWhosWho/PearsonHashingN/PearsonHashingN.sim/sim_1/synth/func/xsim/PearsonHashingN_tb_func_synth.vhd" into library xil_defaultlib
-INFO: [VRFC 10-3107] analyzing entity 'PearsonHashingN'
-INFO: [VRFC 10-163] Analyzing VHDL file "C:/HwAssistedWhosWho/PearsonHashingN/PearsonHashingN.srcs/sim_1/imports/new/PearsonHashingN_tb.vhd" into library xil_defaultlib
-INFO: [VRFC 10-3107] analyzing entity 'PearsonHashingN_tb'

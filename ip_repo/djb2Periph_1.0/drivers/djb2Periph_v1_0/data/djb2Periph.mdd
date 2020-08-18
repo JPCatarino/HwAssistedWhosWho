@@ -1,0 +1,10 @@
+
+
+OPTION psf_version = 2.1;
+
+BEGIN DRIVER djb2Periph
+	OPTION supported_peripherals = (djb2Periph);
+	OPTION copyfiles = all;
+	OPTION VERSION = 1.0;
+	OPTION NAME = djb2Periph;
+END DRIVER

@@ -1,1 +1,0 @@
--wto "fa6cdc79e0e5492298a38f585d522e93" --incr --debug "typical" --relax --mt "2" -L "xil_defaultlib" -L "secureip" --snapshot "PearsonHashing128_tb_func_impl" "xil_defaultlib.PearsonHashing128_tb" -log "elaborate.log" 

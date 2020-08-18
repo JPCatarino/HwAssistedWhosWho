@@ -1,4 +1,0 @@
-INFO: [VRFC 10-163] Analyzing VHDL file "C:/HwAssistedWhosWho/PearsonHashing128/PearsonHashing128.srcs/sources_1/new/PearsonHashing128.vhd" into library xil_defaultlib
-INFO: [VRFC 10-3107] analyzing entity 'PearsonHashing128'
-INFO: [VRFC 10-163] Analyzing VHDL file "C:/HwAssistedWhosWho/PearsonHashing128/PearsonHashing128.srcs/sim_1/new/PearsonHashing128_tb.vhd" into library xil_defaultlib
-INFO: [VRFC 10-3107] analyzing entity 'PearsonHashing128_tb'

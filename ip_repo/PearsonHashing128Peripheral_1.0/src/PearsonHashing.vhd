@@ -57,5 +57,5 @@ begin
         else 
             hashOut <= (others => '0');
         end if;
-    end process;
+    end process;    
 end Behavioral;

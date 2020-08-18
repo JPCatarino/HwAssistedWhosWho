@@ -1,0 +1,6 @@
+/*agoravaiser*/
+the_ROM_image:
+{
+   <bitstream> 
+   <elf> 
+}

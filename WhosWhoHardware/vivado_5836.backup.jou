@@ -1,0 +1,15 @@
+#-----------------------------------------------------------
+# Vivado v2019.2 (64-bit)
+# SW Build 2708876 on Wed Nov  6 21:40:23 MST 2019
+# IP Build 2700528 on Thu Nov  7 00:09:20 MST 2019
+# Start of session at: Mon Jul 13 02:56:49 2020
+# Process ID: 5836
+# Current directory: C:/HwAssistedWhosWho/WhosWhoHardware
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent14688 C:\HwAssistedWhosWho\WhosWhoHardware\WhosWhoHardware.xpr
+# Log file: C:/HwAssistedWhosWho/WhosWhoHardware/vivado.log
+# Journal file: C:/HwAssistedWhosWho/WhosWhoHardware\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project C:/HwAssistedWhosWho/WhosWhoHardware/WhosWhoHardware.xpr
+update_compile_order -fileset sources_1
+config_ip_cache -clear_output_repo

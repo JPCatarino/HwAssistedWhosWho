@@ -47,17 +47,15 @@ def stringToBinary(s):
         ret += nv
     return "".join(ret)
 
-b = "helpmeisewrjflrk"
-
 test1 = "abcd"
 test2 = "defg"
 test3 = "hijk"
 test4 = "lmno"
 
-print("test 1:", hex(hash8(test1, static_LUT)))
+print("test 1:", test1, hex(hash8(test1, static_LUT)))
 
-print("test 2:", hex(hash8(test2, static_LUT)))
+print("test 2:", test2, hex(hash8(test2, static_LUT)))
 
-print("test 3:", hex(hash8(test3, static_LUT)))
+print("test 3:", test3, hex(hash8(test3, static_LUT)))
 
-print("test 4:", hex(hash8(test4, static_LUT)))
+print("test 4:", test4,hex(hash8(test4, static_LUT)))

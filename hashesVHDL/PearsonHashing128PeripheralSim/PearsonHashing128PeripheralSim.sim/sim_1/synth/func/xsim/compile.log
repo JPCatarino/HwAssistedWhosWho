@@ -1,0 +1,13 @@
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/HwAssistedWhosWho/PearsonHashing128PeripheralSim/PearsonHashing128PeripheralSim.sim/sim_1/synth/func/xsim/testbench_func_synth.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'PearsonHashing'
+INFO: [VRFC 10-3107] analyzing entity 'PearsonHashing_0'
+INFO: [VRFC 10-3107] analyzing entity 'PearsonHashing_1'
+INFO: [VRFC 10-3107] analyzing entity 'PearsonHashing_2'
+INFO: [VRFC 10-3107] analyzing entity 'PearsonHashing128Peripheral_v1_0_S00_AXI'
+INFO: [VRFC 10-3107] analyzing entity 'PearsonHashing128Peripheral_v1_0'
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/HwAssistedWhosWho/PearsonHashing128PeripheralSim/PearsonHashing128PeripheralSim.srcs/sim_1/imports/src/PearsonHashingPeripheral_tb.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'testbench'
+ERROR: [VRFC 10-3342] formal 'c_s00_axi_data_width' is not a generic [C:/HwAssistedWhosWho/PearsonHashing128PeripheralSim/PearsonHashing128PeripheralSim.srcs/sim_1/imports/src/PearsonHashingPeripheral_tb.vhd:50]
+ERROR: [VRFC 10-3342] formal 'c_s00_axi_addr_width' is not a generic [C:/HwAssistedWhosWho/PearsonHashing128PeripheralSim/PearsonHashing128PeripheralSim.srcs/sim_1/imports/src/PearsonHashingPeripheral_tb.vhd:51]
+ERROR: [VRFC 10-3782] unit 'behavioral' ignored due to previous errors [C:/HwAssistedWhosWho/PearsonHashing128PeripheralSim/PearsonHashing128PeripheralSim.srcs/sim_1/imports/src/PearsonHashingPeripheral_tb.vhd:15]
+INFO: [VRFC 10-3070] VHDL file 'C:/HwAssistedWhosWho/PearsonHashing128PeripheralSim/PearsonHashing128PeripheralSim.srcs/sim_1/imports/src/PearsonHashingPeripheral_tb.vhd' ignored due to errors

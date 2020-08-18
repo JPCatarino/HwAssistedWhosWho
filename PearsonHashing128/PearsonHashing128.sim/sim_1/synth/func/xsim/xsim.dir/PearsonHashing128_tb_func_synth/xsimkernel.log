@@ -1,7 +1,0 @@
-Running: xsim.dir/PearsonHashing128_tb_func_synth/xsimk.exe -simmode gui -wdb PearsonHashing128_tb_func_synth.wdb -simrunnum 0 -socket 51776
-Design successfully loaded
-Design Loading Memory Usage: 6800 KB (Peak: 6800 KB)
-Design Loading CPU Usage: 0 ms
-Simulation completed
-Simulation Memory Usage: 9052 KB (Peak: 9052 KB)
-Simulation CPU Usage: 15 ms
