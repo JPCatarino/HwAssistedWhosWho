@@ -1,5 +1,7 @@
 # Hardware Assisted Who's Who
 
+Implementação simplificada do jogo de tabuleiro "Quem é Quem?" em FPGA.
+
 Desenvolvido por Fábio Alves e Jorge Catarino - P2G3
 
 ### Pastas
